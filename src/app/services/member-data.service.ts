@@ -13,5 +13,9 @@ export class MemberDataService {
   getMemberName(): string | null {
     return this.memberName;
   }
+  clearMemberName() {
+  this.memberName = null;
+}
+
   constructor() { }
 }

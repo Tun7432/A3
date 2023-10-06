@@ -36,10 +36,14 @@ export class AdminAddComponent {
       console.log(JSON.stringify(response.body));
   
       // เรียกใช้ MatSnackbar เพื่อแสดง Snackbar
-      this.snackBar.open('ข้อมูลถูกเพิ่มเรียบร้อยแล้ว', 'ปิด', {
+   const   snackBarRef= this.snackBar.open('ข้อมูลถูกเพิ่มเรียบร้อยแล้ว', 'ปิด', {
         duration: 2000, // ระยะเวลาที่ Snackbar จะแสดง (มีหน่วยเป็นมิลลิวินาที)
       });
-  
+       snackBarRef.afterDismissed().subscribe(() => {
+    
+    console.log('Snackbar ถูกปิดลง');
+          window.location.reload();
+  });
       this.dialogRef.close();
     });
   }

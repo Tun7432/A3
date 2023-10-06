@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LotteryService } from '../../services/lottery.service';
 import { MemberDataService } from 'src/app/services/member-data.service';
+import { LotteryService } from '../../services/lottery.service';
 
 
 @Component({
@@ -25,6 +25,7 @@ export class MemberComponent {
   }
 
   logout() {
+     this.memberDataService.clearMemberName();
     this.lotteryService.isLoggedIn = false;
     this.router.navigate(['/home']); // เด้งไปยังหน้า home
   }

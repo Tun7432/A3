@@ -34,6 +34,7 @@ import { PurchaseDetailComponent } from './components/purchase-detail/purchase-d
 import { PurchaseComponent } from './components/purchase/purchase.component';
 import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,6 +69,7 @@ import { PurchaseHistoryComponent } from './components/purchase-history/purchase
     FlexLayoutModule,
     HttpClientModule,
     NgxSpinnerModule,
+    
 
     // NgxPermissionsModule.forRoot()
   ],
