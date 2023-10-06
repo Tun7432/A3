@@ -1,0 +1,56 @@
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@400;800;900&family=Noto+Sans+Thai:wght@300;400;900&family=Sarabun:ital,wght@1,500;1,800&family=Taviraj&display=swap");
+  </style>
+  <div class="cart">
+    <h2>ตะกร้าสลาก</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>วันที่ซื้อ</th>
+          <th>ชื่อ</th>
+          <th>หมายเลขสลาก</th>
+          <th>จำนวน</th>
+          <th>ราคาต่อใบ</th>
+          <th>ราคารวม</th>
+          <th>การดำเนินการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+            
+          <td>{{ item.updated_at }}</td>
+          <td>{{ item.period }}</td>
+          <td>{{ item.ticket_number }}</td>
+          <td>{{ item.price }}</td>
+          <td>
+            {{ item.quantity }}
+          </td>
+          <td>
+            <ng-container *ngIf="item && item.price !== undefined && item.quantity !== undefined">
+              {{ item.price * item.quantity }} บาท
+            </ng-container>
+          </td>
+          <td>
+           
+            <button (click)="decrementQuantity(item)">-</button>
+            <button (click)="incrementQuantity(item)">+</button>
+            <button (click)="removeFromCart(item)">ลบ</button>
+        
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="summary">
+      <p>จำนวนบัตรสลาก: {{ calculateTotalItems() }}</p>
+      <p>ราคารวม: {{ calculateTotalPrice() }} บาท</p>
+    </div>
+    <div class="cart-controls">
+      <button class="clear-button" (click)="clearCart()">ลบทั้งหมด</button>
+    </div>
+    <div class="cart-controls">
+      <button class="back-button" (click)="goToSearch()">
+        กลับไปยังหน้าค้นหา
+      </button>
+    </div>
+  </div>
+  

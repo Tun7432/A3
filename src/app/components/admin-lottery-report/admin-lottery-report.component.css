@@ -1,0 +1,144 @@
+.sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav {
+    width: 250px;
+  }
+  
+  .mat-table {
+    width: 100%;
+  }
+  
+  .mat-elevation-z8 {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .mat-paginator {
+    justify-content: center;
+  }
+  
+  .mat-form-field {
+    margin-right: 16px;
+  }
+  
+  /* Add additional styling as needed */
+  /* ปรับแต่งสไตล์ของตาราง */
+.mat-table {
+    width: 100%;
+    margin-top: 16px;
+  }
+  
+  /* ปรับแต่งสไตล์ของแถวหัวตาราง */
+  .mat-header-cell {
+    font-weight: bold;
+  }
+  
+  /* ปรับแต่งสไตล์ของตัวค่าในเซลล์ */
+  .mat-cell {
+    white-space: nowrap; /* ป้องกันข้อความล้นไปในเซลล์ */
+    overflow: hidden;
+    text-overflow: ellipsis; /* ให้ข้อความมี ... เมื่อข้อความยาวเกินไป */
+  }
+  
+  /* ปรับแต่งสไตล์ของส่วนของ Paginator */
+  .mat-paginator {
+    justify-content: center; /* จัดการยอดค่า Paginator ตรงกลาง */
+    margin-top: 16px;
+  }
+  
+  /* ปรับแต่งสไตล์ของเมนูบาร์ */
+  .mat-toolbar {
+    background-color: #1976D2;
+    color: white;
+  }
+  
+  /* ปรับแต่งสไตล์ของแท็บเวลา Datepicker */
+  .mat-datepicker-toggle {
+    color: #1976D2;
+  }
+  
+  /* ปรับแต่งสไตล์ของฟอร์มวันที่ */
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  /* ปรับแต่งสไตล์ของเมนูซ้าย */
+  .sidenav {
+    width: 250px;
+  }
+  
+  /* ปรับแต่งสไตล์ของเนื้อหาหน้าเว็บ */
+  .sidenav-content {
+    padding: 16px;
+  }
+  /* สไตล์สำหรับหน้าเว็บรายงานการซื้อ */
+body {
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* สไตล์สำหรับส่วนหัวหน้าเว็บ */
+  mat-toolbar {
+    background-color: #2196F3;
+    color: white;
+    font-size: 24px;
+    padding: 16px;
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+  }
+  
+  /* สไตล์สำหรับเนื้อหาหน้าเว็บ */
+  .sidenav-content {
+    padding: 16px;
+  }
+  
+  /* สไตล์สำหรับฟิลด์วันที่ */
+  mat-form-field {
+    width: 100%;
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+  }
+  
+  /* สไตล์สำหรับ Basic native select */
+  mat-select {
+    width: 100%;
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+  }
+  
+  /* สไตล์สำหรับ Paginator */
+  .mat-paginator {
+    justify-content: center;
+    margin-top: 24px;
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+  }
+  
+  /* สไตล์สำหรับตาราง */
+  .mat-table {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+  }
+  
+  /* สไตล์สำหรับหัวตาราง */
+  .mat-header-cell {
+    font-weight: bold;
+    text-align: left;
+    padding: 16px;
+    background-color: #2196F3;
+    color: white;
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+  }
+  
+  /* สไตล์สำหรับเซลล์ข้อมูล */
+  .mat-cell {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 16px;
+    font-family: 'Charm', 'Itim', 'Noto Sans Thai', 'Noto Sans Thai Looped', 'Pattaya', 'Sarabun', 'Sriracha', 'Taviraj', sans-serif;
+  }
+  

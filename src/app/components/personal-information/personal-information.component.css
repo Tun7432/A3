@@ -1,0 +1,73 @@
+/* user-profile.component.css */
+
+/* กำหนดสีพื้นหลังของ MatCard */
+mat-card {
+    width: 300px;
+    background-color: #fff; /* สีพื้นหลังของ MatCard */
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; /* ความโค้งของมุม MatCard */
+  }
+  
+  /* สไตล์ของ MatCard Title */
+  mat-card-title {
+    font-size: 20px; /* ขนาดตัวอักษรของหัวข้อ */
+    font-weight: bold; /* ความหนาของตัวอักษรในหัวข้อ */
+    margin-bottom: 10px; /* ระยะห่างด้านล่างของหัวข้อ */
+    color: #333; /* สีข้อความ */
+  }
+  
+  /* สไตล์ของ MatCard Subtitle */
+  mat-card-subtitle {
+    font-size: 18px; /* ขนาดตัวอักษรของหัวข้อย่อย */
+    font-weight: normal; /* ความหนาของตัวอักษรในหัวข้อย่อย */
+    margin-bottom: 15px; /* ระยะห่างด้านล่างของหัวข้อย่อย */
+    color: #555; /* สีข้อความ */
+  }
+  
+  /* สไตล์ของข้อความใน div */
+  div p {
+    margin: 5px 0; /* ระยะห่างด้านบนและด้านล่างของข้อความ */
+    font-size: 16px; /* ขนาดตัวอักษรของข้อความ */
+    font-weight: normal; /* ความหนาของตัวอักษรในข้อความ */
+    color: #333; /* สีข้อความ */
+  }
+  
+  /* สไตล์ของรูปภาพ (หากมี) */
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%; /* ทำให้รูปเป็นวงกลม */
+  }
+  
+  /* สไตล์ของปุ่ม (หากมี) */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  
+  /* Media Queries เพื่อทำให้หน้าเว็บ responsive */
+  @media (max-width: 768px) {
+    mat-card {
+      width: 100%;
+      margin: 10px auto;
+    }
+  }
+
+  p{
+    font-family: 'Charm', cursive;
+font-family: 'Noto Sans Thai', sans-serif;
+font-family: 'Noto Sans Thai Looped', sans-serif;
+font-family: 'Pattaya', sans-serif;
+font-family: 'Sarabun', sans-serif;
+font-family: 'Sriracha', cursive;
+font-family: 'Taviraj', serif;
+  }
