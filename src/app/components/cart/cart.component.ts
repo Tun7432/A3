@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Lottery } from 'src/app/model/Lottery.model';
 import { CartService } from 'src/app/services/cart.service';
 import { LotteryService } from 'src/app/services/lottery.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 import { MatDialog } from '@angular/material/dialog';
 @Component({
@@ -19,57 +21,123 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService, private router: Router,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,private data: LotteryService,
-    private http: HttpClient,     ) {}
+    private http: HttpClient,
+    private confirmationService: ConfirmationService, 
+    private messageService: MessageService     ) {}
 
   ngOnInit() {
     this.cartService.getItems().subscribe((items) => {
       this.cartItems = items;
     });
   }
-  
+
   removeFromCart(lottery: Lottery) {
-    const config = new MatSnackBarConfig();
-    config.duration = 5000; // ระยะเวลาที่ snackBar แสดง (ms)
-    config.panelClass = ['custom-snackbar']; // คลาส CSS สำหรับ snackBar
-    
-    const snackBarRef = this.snackBar.open('คุณแน่ใจหรือไม่ที่ต้องการลบสลากนี้ออกจากตะกร้า?', 'ยืนยัน', config);
+    // แสดง SweetAlert2 สำหรับการยืนยันการลบสลาก
+    Swal.fire({
+      title: 'ยืนยันการลบสลาก',
+      text: 'คุณต้องการลบสลากนี้ออกจากตะกร้าหรือไม่?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ใช่',
+      cancelButtonText: 'ไม่',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ถ้าผู้ใช้กด "ใช่" ให้ลบสลากออกจากตะกร้าที่นี่
+        this.cartService.clearSpecificLottery(lottery);
+        console.log(lottery);
   
-    snackBarRef.onAction().subscribe(() => {
-      this.cartService.clearSpecificLottery(lottery);
-      console.log(lottery);
+        // แสดง SweetAlert2 สำหรับข้อความสำเร็จ
+        Swal.fire({
+          title: 'ลบสลากสำเร็จ',
+          text: 'คุณได้ลบสลากออกจากตะกร้าแล้ว',
+          icon: 'success',
+        });
+      }
     });
   }
+  
   
   
   
   clearCart() {
-    const snackBarRef = this.snackBar.open('คุณต้องการลบทั้งหมดใช่หรือไม่?', 'ยืนยัน', {
-      duration: 5000, // ระยะเวลาในการแสดง Snackbar (5 วินาที)
-    });
-
-    snackBarRef.onAction().subscribe(() => {
-      // ถ้าผู้ใช้คลิกที่ปุ่ม "ยืนยัน"
-      // ให้เรียกใช้งานเมธอด clearCart() หรือสิ่งที่คุณต้องการทำเมื่อต้องการลบทั้งหมด
-      this.clearCartConfirmed();
+    // ตรวจสอบว่าตะกร้าไม่ว่าง
+    if (this.cartItems.length === 0) {
+      Swal.fire({
+        title: 'ไม่มีสลากในตะกร้า',
+        text: 'คุณไม่มีสลากในตะกร้าเพื่อลบ',
+        icon: 'error',
+      });
+      return;
+    }
+  
+    // แสดง SweetAlert2 สำหรับการยืนยันการลบทั้งหมด
+    Swal.fire({
+      title: 'คุณต้องการลบทั้งหมดใช่หรือไม่?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ถ้าผู้ใช้คลิกปุ่ม "ยืนยัน" ให้เรียกใช้งานเมธอด clearCartConfirmed() หรือสิ่งที่คุณต้องการทำเมื่อต้องการลบทั้งหมด
+        this.clearCartConfirmed();
+      }
     });
   }
+  
   clearCartConfirmed() {
- 
     this.cartService.clearCart();
-    console.log("ลบทั้งหมด",this.cartService)
+    console.log("ลบทั้งหมด", this.cartService);
+  
+    // แสดง SweetAlert2 สำหรับข้อความสำเร็จ
+    Swal.fire({
+      title: 'ลบทั้งหมดสำเร็จ',
+      text: 'คุณได้ลบทั้งหมดออกจากตะกร้าแล้ว',
+      icon: 'success',
+    });
   }
+  
+  
+  
   confirmCart() {
-  const snackBarRef = this.snackBar.open('ยืนยันการซื้อ', 'ยืนยัน', {
-    duration: 5000, // Show the message for 5 seconds
-  });
-
-    snackBarRef.afterDismissed().subscribe(() => {
-   this.add();
-this.cartService.clearCart();
-    // Redirect to a new page or perform any other action after the snackbar is dismissed
-    this.router.navigate(['/member']);
-  });
-}
+     // Check if the cart is empty
+  if (this.cartItems.length === 0) {
+    Swal.fire({
+      title: 'ตะกร้าว่าง',
+      text: 'กรุณาเพิ่มสลากใส่ตะกร้าก่อน!',
+      icon: 'error',
+    });
+    return;
+  }
+  
+    // เรียกใช้งาน SweetAlert2 สำหรับการยืนยันการสั่งซื้อ
+    Swal.fire({
+      title: 'ยืนยันการสั่งซื้อสลาก',
+      text: 'คุณแน่ใจหรือไม่ที่ต้องการสั่งซื้อสลาก?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // ทำการสั่งซื้อสลากที่นี่
+        this.add();
+        this.cartService.clearCart();
+        // this.router.navigate(['/member']);
+  
+        // แสดงข้อความสำเร็จของ PrimeNG
+        this.messageService.add({
+          severity: 'success',
+          summary: 'สั่งซื้อสลากสำเร็จ',
+          detail: 'คุณได้สั่งซื้อสลากสำเร็จแล้ว',
+        });
+      }
+    });
+  }
+  
+  
+  
+ 
 
 
   getCartBadgeCount(lottery: Lottery): number {

@@ -45,5 +45,9 @@
   <div class="cart-controls">
     <button class="back-button" (click)="goToSearch()">กลับไปยังหน้าค้นหา</button>
   </div>
-  
+  <!-- เรียกใช้งาน Dialog ของ PrimeNG ใน tag p-confirmDialog -->
+<p-confirmDialog  id="p-confirmDialog" header="ยืนยันการสั่งซื้อ" icon="pi pi-exclamation-triangle" [style]="{ width: '350px' }"></p-confirmDialog>
+<p-toast position="top-left"></p-toast>
+
+
 </div>

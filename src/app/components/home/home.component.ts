@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { MyDialogComponent } from '../my-dialog/my-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -10,32 +8,35 @@ import { MyDialogComponent } from '../my-dialog/my-dialog.component';
 })
 export class HomeComponent {
   
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor() {}
+
   refreshPage() {
     window.location.reload();
   }
-  dashboard() {
-    const dialogRef = this.dialog.open(MyDialogComponent, {
-      width: '250px',
-      data: 'กรุณาสมัครสมาชิกก่อนเข้าใช้งาน'
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed');
-      // นำไปยังหน้า login
-      this.router.navigate(['/login']);
+  dashboard() {
+    Swal.fire({
+      title: 'กรุณาสมัครสมาชิกก่อนเข้าใช้งาน',
+      icon: 'warning',
+      confirmButtonText: 'ตกลง'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // นำทางไปยังหน้า login หลังจากกดปุ่ม "ตกลง"
+        window.location.href = '/login';
+      }
     });
   }
-  account_login() {
-    const dialogRef = this.dialog.open(MyDialogComponent, {
-      width: '250px',
-      data: 'กรุณาสมัครสมาชิกก่อนเข้าใช้งาน'
-    });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed');
-      // นำไปยังหน้า login
-      this.router.navigate(['/login']);
+  account_login() {
+    Swal.fire({
+      title: 'กรุณาสมัครสมาชิกก่อนเข้าใช้งาน',
+      icon: 'warning',
+      confirmButtonText: 'ตกลง'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // นำทางไปยังหน้า login หลังจากกดปุ่ม "ตกลง"
+        window.location.href = '/login';
+      }
     });
   }
 }

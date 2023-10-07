@@ -2,13 +2,11 @@
 
 div.content {
   padding: 16px;
-  border: 1px solid #a8a8a8; 
+  border: 1px solid #a8a8a8;
   border-radius: 4px;
-  
 }
 
 .content > mat-card {
-  
   max-width: 400px; /* เพิ่มขนาดการ์ดสูงสุด */
   margin-bottom: 16px;
 }
@@ -16,7 +14,6 @@ div.content {
 .card-actions {
   display: flex;
   justify-content: space-between;
-  
 }
 
 .mat-card {
@@ -28,13 +25,12 @@ div.content {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* เพิ่มเอฟเฟค Hover ให้ปุ่ม */
 button {
   transition: background-color 0.2s, color 0.2s;
 }
 
 button:hover {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
 }
 .right-align {
@@ -48,24 +44,11 @@ button:hover {
 }
 
 .info-text {
-  font-size: 23px; 
+  font-size: 23px;
 }
-#fxLayout{
+#fxLayout {
   border: 1px solid rgb(160, 160, 160);
 }
-/* ใน app.component.css */
-.search-input {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.search-input input {
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-family: 'Noto Sans Thai Looped', sans-serif;
-  font-size: 24px; /* ปรับขนาดตัวอักษรตามต้องการ */
-  text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
-}
-/* app.component.css */
 
 .flex-container {
   display: flex;
@@ -76,7 +59,6 @@ button:hover {
 
 .input-box {
   margin: 0 4px;
-
 }
 
 .input-box input {
@@ -123,12 +105,14 @@ button {
   height: 47px;
   font-size: 30px;
   text-align: center;
-  border: 1px solid #ccc; /* เพิ่มเส้นขอบสำหรับ input */
+  border: 1.75px solid #000000; /* เพิ่มเส้นขอบสำหรับ input */
   border-radius: 40px; /* เพิ่มขอบมนเมื่อเรียกใช้งานรูปร่างของ input */
   margin-right: 8px; /* เพิ่มระยะห่างขวาของ input */
 }
 
+/* styles.css */
 
+/* เรียง mat-card ให้อยู่ในบรรทัดเดียว โดยมีระยะห่าง */
 div[fxLayout="row wrap"] {
   justify-content: flex-start;
   flex-wrap: nowrap;
@@ -154,8 +138,8 @@ mat-card-title,
 .info-text,
 .left-align,
 .right-align {
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-family: 'Noto Sans Thai Looped', sans-serif;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-family: "Noto Sans Thai Looped", sans-serif;
   margin-right: 15px;
 }
 
@@ -173,8 +157,8 @@ mat-card-title,
 /* เพิ่ม CSS สำหรับข้อความ "ไม่พบสลากที่ค้นหา" */
 /* เพิ่ม CSS สำหรับข้อความ "ไม่พบสลากที่ค้นหา" */
 .no-results {
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-family: 'Noto Sans Thai Looped', sans-serif;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-family: "Noto Sans Thai Looped", sans-serif;
   font-size: 1.2rem;
   color: #ff0000; /* สีข้อความแสดงผลเมื่อไม่พบผลลัพธ์ (สีแดง) */
   text-align: center;
@@ -197,59 +181,81 @@ mat-card-title,
   font-size: 24px;
   text-align: center;
   margin-right: 15px;
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-family: 'Noto Sans Thai Looped', sans-serif;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-family: "Noto Sans Thai Looped", sans-serif;
 }
 
-button {
- 
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-family: 'Noto Sans Thai Looped', sans-serif;
+.set label {
+  font-size: 20px;
 }
-
+.period label {
+  font-size: 20px;
+}
 
 div > label {
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-family: 'Noto Sans Thai Looped', sans-serif;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-family: "Noto Sans Thai Looped", sans-serif;
   display: block;
   margin-bottom: 8px;
- 
 }
 
 div > select {
-  width: 100%;
-  height: 40px;
-  font-size: 16px;
-  font-family: 'Noto Sans Thai', sans-serif;
-  font-family: 'Noto Sans Thai Looped', sans-serif;
   padding: 5px;
-  border: 1px solid #ccc;
+  border: 1.25px solid rgb(65, 65, 65);
   border-radius: 4px;
-  margin-bottom: 15px; 
-  
+  margin-bottom: 15px;
 }
 
 button:hover {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
- 
 }
-.period{
-  margin-left: 20px; 
+.period {
+  margin-left: 20px;
 }
 
 .set {
-  margin-left: 20px; 
+  margin-left: 20px;
+}
+.search {
+  font-size: 18px;
+}
+span {
+  font-size: 26px;
+}
+.info-text {
+  font-size: 22px;
+}
+mat-card-title {
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 12px;
+  padding-left: 50px;
+}
+.left-align {
+  font-size: 20px;
+}
+.button-looks {
+  font-size: 18px;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-family: "Noto Sans Thai Looped", sans-serif;
+  padding-bottom: 5px;
+}
+
+option{
+  font-size: 28px; 
+  font-family: 'Itim', cursive;
+  font-family: 'Mitr', sans-serif;
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-family: 'Noto Sans Thai Looped', sans-serif;
+  font-family: 'Pattaya', sans-serif;
+  font-family: 'Sarabun', sans-serif;
+  font-family: 'Sriracha', cursive;
+  font-family: 'Taviraj', serif;
+  
 }
 
 
-.delete-button:hover {
-  background-color: #d32f2f; /* เปลี่ยนสีพื้นหลังเมื่อเมาส์ hover ตามความต้องการ */
-}
-.add-button-wrapper {
-  display: flex;
-  justify-content: flex-end; /* จัดเรียงแบบยืดหยุ่นทางขวา */
-  margin-top: 10px; /* ระยะห่างด้านบน (และหากต้องการอยู่ด้านขวาด้านล่างเพิ่ม margin-bottom) */
-  margin-left: 100px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Mitr:wght@400;500&family=Noto+Sans+Thai+Looped:wght@400;800;900&family=Noto+Sans+Thai:wght@300;400;900&family=Pattaya&family=Sarabun:ital,wght@0,700;1,500;1,800&family=Sriracha&family=Taviraj&display=swap');
+
 

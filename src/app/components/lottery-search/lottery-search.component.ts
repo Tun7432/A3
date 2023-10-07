@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { MyDialogComponent } from '../my-dialog/my-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MessageService } from 'primeng/api';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lottery-search',
@@ -34,7 +36,8 @@ export class LotterySearchComponent {
     private dialog: MatDialog,
     private cartService: CartService,
     private router : Router,
-    private snackBar:MatSnackBar
+    private snackBar:MatSnackBar,
+    private messageService: MessageService 
   ) {
   
     http.get(lotteryService.apiEndpoint + '/lottery').subscribe((data: any) => {
@@ -53,15 +56,31 @@ export class LotterySearchComponent {
   }
   
   selectByPeriod() {
-    
     if (typeof this.period === 'string' && this.period.trim() !== '') {
       const selectedPeriod = parseInt(this.period, 10);
       this.lotteryResults = this.allLotteryResults.filter(
-        (lottery) => lottery.period === selectedPeriod
+        (lottery) => {
+          return (
+            lottery.period === selectedPeriod &&
+            (!this.set_number || lottery.set_number.toString() === this.set_number)
+          );
+        }
       );
     } else {
       // ถ้าไม่ได้เลือกงวดหรือเลือกงวดว่างเปล่า ให้แสดงทุกสลาก
-      this.lotteryResults = this.allLotteryResults;
+      this.lotteryResults = this.allLotteryResults.filter((lottery) => {
+        return !this.set_number || lottery.set_number.toString() === this.set_number;
+      });
+    }
+  
+    // เพิ่มการแจ้งเตือน SweetAlert2 เมื่อไม่พบผลลัพธ์
+    if (this.lotteryResults.length === 0) {
+      Swal.fire({
+        title: 'ไม่พบสลาก',
+        text: 'ไม่พบสลากที่ค้นหา',
+        icon: 'info',
+        confirmButtonText: 'ตกลง'
+      });
     }
   }
   onSet_numberSelect() {
@@ -73,11 +92,28 @@ export class LotterySearchComponent {
     if (typeof this.set_number === 'string' && this.set_number.trim() !== '') {
       const selectedSet_number = parseInt(this.set_number, 10);
       this.lotteryResults = this.allLotteryResults.filter(
-        (lottery) => lottery.set_number === selectedSet_number
+        (lottery) => {
+          return (
+            (!this.period || lottery.period === parseInt(this.period, 10)) &&
+            lottery.set_number === selectedSet_number
+          );
+        }
       );
     } else {
-      // ถ้าไม่ได้เลือกงวดหรือเลือกงวดว่างเปล่า ให้แสดงทุกสลาก
-      this.lotteryResults = this.allLotteryResults;
+      // ถ้าไม่ได้เลือกชุดหรือเลือกชุดว่างเปล่า ให้แสดงทุกสลาก
+      this.lotteryResults = this.allLotteryResults.filter((lottery) => {
+        return !this.period || lottery.period === parseInt(this.period, 10);
+      });
+    }
+  
+    // เพิ่มการแจ้งเตือน SweetAlert2 เมื่อไม่พบผลลัพธ์
+    if (this.lotteryResults.length === 0) {
+      Swal.fire({
+        title: 'ไม่พบสลาก',
+        text: 'ไม่พบสลากที่ค้นหา',
+        icon: 'info',
+        confirmButtonText: 'ตกลง'
+      });
     }
   }
   
@@ -112,60 +148,103 @@ export class LotterySearchComponent {
     this.isMultiple = true;
     this.lotteriesByNumber = [];
     const inputArray = input.split(',');
-
+  
     const ticketNumbers = inputArray.map((inputItem) =>
       Number(inputItem.trim())
     );
-
+  
     this.lotteryResults = this.allLotteryResults.filter((lottery) => {
       const lotteryNumbers = lottery.ticket_number
         .toString()
         .split(',')
         .map(Number);
-
+  
       const hasAllNumbers = ticketNumbers.every((number) =>
         lotteryNumbers.includes(number)
       );
-
+  
       const ticketNumberStrings = ticketNumbers.map((number) =>
         number.toString()
       );
-
+  
       const startsWithNumber = ticketNumberStrings.some((inputNumber) =>
         lotteryNumbers.some((lotteryNumber) =>
           lotteryNumber.toString().startsWith(inputNumber)
         )
       );
-
+  
       const endsWithNumber = ticketNumberStrings.some((inputNumber) =>
         lotteryNumbers.some((lotteryNumber) =>
           lotteryNumber.toString().endsWith(inputNumber)
         )
       );
-
+  
       return hasAllNumbers || startsWithNumber || endsWithNumber;
+    });
+  
+    // เพิ่มการแจ้งเตือน SweetAlert2 เมื่อไม่พบผลลัพธ์
+    if (this.lotteryResults.length === 0) {
+      Swal.fire({
+        title: 'ไม่พบสลาก',
+        text: 'ไม่พบสลากที่ค้นหา',
+        icon: 'info',
+        confirmButtonText: 'ตกลง'
+      });
+    }
+  }
+  
+  resetSearch() {
+    // รีเซ็ตค่าใน input ทั้ง 6 ช่อง
+    for (let i = 1; i <= 6; i++) {
+      const inputElement = document.getElementsByName(
+        'input' + (i - 1)
+      )[0] as HTMLInputElement;
+      if (inputElement) {
+        inputElement.value = '';
+      }
+    }
+  
+    // รีเซ็ตค่าใน select ของงวดและชุด
+    this.period = '';
+    this.set_number = '';
+  
+    // รีเซ็ตค้นหาและแสดงสลากทั้งหมดอีกครั้ง
+    this.lotteryResults = this.allLotteryResults;
+  }
+  
+  
+  
+  
+  
+  addToCart(lottery: Lottery) {
+    // เรียกใช้งาน SweetAlert เพื่อยืนยันการเพิ่มสลากลงในตะกร้า
+    Swal.fire({
+      title: 'ยืนยันการเพิ่มสลาก',
+      text: `คุณต้องการเพิ่มสลากรายการนี้ลงในตะกร้าหรือไม่?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ใช่',
+      cancelButtonText: 'ไม่',
+    }).then((result) => {
+      if (result.value) {
+        // ถ้าผู้ใช้กด "ใช่" ให้เพิ่มสลากลงในตะกร้า
+        this.cartService.addToCart(lottery);
+  
+        // แสดง SweetAlert2 แจ้งเตือนสำเร็จ
+        Swal.fire({
+          icon: 'success',
+          title: 'สลากถูกเพิ่มลงในตะกร้า',
+          timer: 5000,
+          showConfirmButton: false,
+        });
+      }
     });
   }
   
   
   
+
   
-  
-  addToCart(result: any) {
-    this.cartService.addToCart(result);
-    console.log("เพิ่มสลากลงตะกร้า ", result);
-  
-    // สร้างข้อมูลสลากที่ถูกเพิ่มลงในตะกร้า
-    const lotteryInfo = ` : ${result.ticket_number} ราคา : ${result.price} บาท ชุดที่ : ${result.set_number} งวดที่ : ${result.period}`;
-  
-    // ตั้งค่าคอนฟิกของ snackBar
-    const config = new MatSnackBarConfig();
-    config.duration = 5000; // ระยะเวลาที่ snackBar แสดง (ms)
-    config.panelClass = ['custom-snackbar']; // คลาส CSS สำหรับ snackBar
-  
-    // แสดง snackBar ด้วยข้อมูลสลากที่ถูกเพิ่มลงในตะกร้า
-    this.snackBar.open(`หมายเลขสลาก\n${lotteryInfo}ถูกเพิ่มเข้าไปยังตะกร้า`, '', config);
-  }
   
   getCartBadgeCount(result: any): number {
     // นี่คือตำแหน่งในตะกร้าของคุณที่ต้องการคำนวณจำนวนสลาก

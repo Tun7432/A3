@@ -25,7 +25,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 import { AdminEditComponent } from './components/admin-edit/admin-edit.component';
 import { AdminAddComponent } from './components/admin-add/admin-add.component';
-import { AdminDeleteComponent } from './components/admin-delete/admin-delete.component';
+
 import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { AdminLotteryReportComponent } from './components/admin-lottery-report/admin-lottery-report.component';
 
@@ -33,8 +33,12 @@ import { PurchaseDetailComponent } from './components/purchase-detail/purchase-d
 
 import { PurchaseComponent } from './components/purchase/purchase.component';
 import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
+import { MessageModule } from 'primeng/message';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
-
+import { ConfirmationService, MessageService } from 'primeng/api'; // เปลี่ยนการนำเข้า
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +56,7 @@ import { PurchaseHistoryComponent } from './components/purchase-history/purchase
 
     AdminEditComponent,
     AdminAddComponent,
-    AdminDeleteComponent,
+
     PersonalInformationComponent,
     AdminLotteryReportComponent,
     PurchaseDetailComponent,
@@ -69,13 +73,20 @@ import { PurchaseHistoryComponent } from './components/purchase-history/purchase
     FlexLayoutModule,
     HttpClientModule,
     NgxSpinnerModule,
-    
+    MessageModule,
+    ButtonModule,
+    ToastModule,
+    ConfirmDialogModule,
+ 
 
     // NgxPermissionsModule.forRoot()
   ],
   providers: [
     MemberDataService,
     NgxSpinnerService,
+    MessageService,
+    ConfirmationService,
+  
     // {
 
     //   provide: 'adminPermission',

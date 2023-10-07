@@ -19,13 +19,13 @@ export class LotteryService {
   setMemberName(name: string) {
     this.memberDataService.setMemberName(name);
   }
-  
 }
 class Lottery implements Lottery{
   
   id: number = 0;
   ticket_number: number = 0;
   price: number = 0;
+  // quantity:number=0;
   period: number = 0;
   set_number: number = 0;
   created_at: string = '';

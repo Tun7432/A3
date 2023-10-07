@@ -8,6 +8,7 @@ import { Lottery } from '../model/Lottery.model';
 export class CartService {
   private items: Lottery[] = [];
   private itemsSubject = new BehaviorSubject<Lottery[]>([]);
+  private cartBadgeSubject = new BehaviorSubject<number>(0); // ตัวแปรสำหรับเก็บค่า Badges
   Usersid: any;
 
   constructor() {}
@@ -15,7 +16,9 @@ export class CartService {
   getItems(): Observable<Lottery[]> {
     return this.itemsSubject.asObservable();
   }
-
+  updateCartBadge(count: number) {
+    this.cartBadgeSubject.next(count); // อัปเดตค่า Badges
+  }
   addToCart(lottery: Lottery) {
     const existingLottery = this.items.find((item) => 
       item.ticket_number === lottery.ticket_number &&

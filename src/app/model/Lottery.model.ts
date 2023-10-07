@@ -13,8 +13,8 @@ export interface Lottery {
     set_number:    number;
     created_at:    string;
     updated_at:    string;
-  isSelected?: boolean;
-  [key: string]: any;
+    isSelected?: boolean;
+    [key: string]: any;
 }
 
 // Converts JSON strings to/from your types

@@ -33,14 +33,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of cartItems">
+        <tr *ngFor="let item of Results">
             
-          <td>{{ item.updated_at }}</td>
-          <td>{{ item.period }}</td>
+          <td>{{ item.created_at }}</td>
+          <td>{{ item.first_name }}</td>
           <td>{{ item.ticket_number }}</td>
-          <td>{{ item.price }}</td>
+          <td>{{ item.quantity }}</td>
           <td>
-            {{ item.quantity }}
+            {{ item.price }}
           </td>
           <td>
             <ng-container *ngIf="item && item.price !== undefined && item.quantity !== undefined">

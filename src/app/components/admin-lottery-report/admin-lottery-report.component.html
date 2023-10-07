@@ -16,18 +16,34 @@
       <!-- Sidebar Content -->
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="เลือกวันที่">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    
-      <mat-form-field>
-        <mat-label>ประจำเดือน</mat-label>
-        <mat-select [(value)]="selectedMonth">
-          <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
-        </mat-select>
-      </mat-form-field>
+
+
+
+    <!-- เพิ่มฟิลด์ "วัน/เดือน/ปี" ในฟอร์มค้นหา -->
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="เลือกวันที่" [(ngModel)]="selectedDate">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<!-- เพิ่มปุ่มสำหรับค้นหาข้อมูล -->
+<button mat-raised-button color="primary" (click)="filterData()">ค้นหา</button>
+
+<!-- เพิ่มฟิลด์ "เดือน" และ "ปี" ในฟอร์มค้นหา -->
+<mat-form-field>
+  <mat-label>เดือน</mat-label>
+  <mat-select [(value)]="selectedMonth">
+    <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-label>ปี</mat-label>
+  <input matInput type="number" [(ngModel)]="selectedYear" placeholder="ปี">
+</mat-form-field>
+
+<!-- เพิ่มปุ่มสำหรับค้นหาข้อมูลด้วยเดือน/ปี -->
+<button mat-raised-button color="primary" (click)="filterDataByMonthYear()">ค้นหาด้วยเดือน/ปี</button>
       
   
       <!-- Display Data Table -->
@@ -42,9 +58,11 @@
           font-family: 'Sarabun', sans-serif;
           font-family: 'Sriracha', cursive;
           font-family: 'Taviraj', serif;"> วันที่ </mat-header-cell>
-          <mat-cell *matCellDef="let purchase"> {{ purchase.date | date }} </mat-cell>
+          <mat-cell *matCellDef="let purchase"> {{ purchase.created_at }} </mat-cell>
         </ng-container>
   
+
+
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef style="font-family: 'Charm', cursive;
           font-family: 'Itim', cursive;
@@ -54,7 +72,7 @@
           font-family: 'Sarabun', sans-serif;
           font-family: 'Sriracha', cursive;
           font-family: 'Taviraj', serif;"> ชื่อ-นามสกุล </mat-header-cell>
-          <mat-cell *matCellDef="let purchase"> {{ purchase.name }} </mat-cell>
+          <mat-cell *matCellDef="let purchase"> {{ purchase.first_name }}  {{ purchase.last_name }} </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="lottery">
@@ -66,7 +84,7 @@
           font-family: 'Sarabun', sans-serif;
           font-family: 'Sriracha', cursive;
           font-family: 'Taviraj', serif;"> หมายเลขสลาก </mat-header-cell>
-          <mat-cell *matCellDef="let purchase"> {{ purchase.lottery }} </mat-cell>
+          <mat-cell *matCellDef="let purchase"> {{ purchase.ticket_number }} </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="amount">
@@ -78,7 +96,7 @@
           font-family: 'Sarabun', sans-serif;
           font-family: 'Sriracha', cursive;
           font-family: 'Taviraj', serif;"> จำนวน </mat-header-cell>
-          <mat-cell *matCellDef="let purchase"> {{ purchase.amount }} </mat-cell>
+          <mat-cell *matCellDef="let purchase"> {{ purchase.quantity }} </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="price">
@@ -90,7 +108,7 @@
           font-family: 'Sarabun', sans-serif;
           font-family: 'Sriracha', cursive;
           font-family: 'Taviraj', serif;"> ราคา </mat-header-cell>
-          <mat-cell *matCellDef="let purchase"> {{ purchase.price }} </mat-cell>
+          <mat-cell *matCellDef="let purchase"> {{ purchase.total_price }} </mat-cell>
         </ng-container>
   
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

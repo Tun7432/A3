@@ -1,7 +1,7 @@
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@400;800;900&family=Noto+Sans+Thai:wght@300;400;900&display=swap");
 </style>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <div class="content">
   <div class="flex-container">
     <div class="input-box">
@@ -31,21 +31,35 @@
     >
       <mat-icon>search</mat-icon>ค้นหา
     </button>
-    <div class="period">
-      <label>งวดที่ <span>*</span></label>
-      <select [(ngModel)]="period" (change)="onPeriodSelect()">
+    <button
+mat-raised-button
+color="primary"
+style="margin-right: 15px; font-family: 'Noto Sans Thai', sans-serif; font-family: 'Noto Sans Thai Looped', sans-serif;"
+(click)="resetSearch()"
+>
+<mat-icon>refresh</mat-icon>รีเซ็ตการค้นหา
+</button>
+    <div class="period form-group">
+      <label for="period">งวดที่ <span>*</span></label>
+      <select [(ngModel)]="period" (change)="onPeriodSelect()" class="form-select" name="period">
+
         <option disabled="disabled" value=""></option>
         <option *ngFor="let periodItem of periodList" [value]="periodItem">{{ periodItem }}</option>
       </select>
     </div>
     
-    <div class="set">
-      <label>ชุดที่ <span>*</span></label>
-      <select [(ngModel)]="set_number" (change)="onSet_numberSelect()">
+    <div class="set form-group">
+      <label for="set_number">ชุดที่ <span>*</span></label>
+      <select [(ngModel)]="set_number" (change)="onSet_numberSelect()" class="form-select" name="set_number">
+
         <option disabled="disabled" value=""></option>
         <option *ngFor="let set_number of set_numberList" [value]="set_number">{{ set_number }}</option>
       </select>
     </div>
+    
+    
+
+
   </div>
 
   <div fxLayout="row wrap" fxLayoutGap="66px">
@@ -90,6 +104,10 @@
         </mat-card-actions>
       </mat-card>
     </div>
+    <p-toast position="top-right"></p-toast>
+
+<!-- ... ส่วนอื่น ๆ ของ HTML -->
+
     <div *ngIf="lotteryResults.length === 0" class="no-results">
       ไม่พบสลากที่ค้นหา
     </div>

@@ -241,3 +241,21 @@ mat-card-title {
   font-family: "Noto Sans Thai Looped", sans-serif;
   padding-bottom: 5px;
 }
+
+option{
+  font-size: 28px; 
+  font-family: 'Itim', cursive;
+  font-family: 'Mitr', sans-serif;
+  font-family: 'Noto Sans Thai', sans-serif;
+  font-family: 'Noto Sans Thai Looped', sans-serif;
+  font-family: 'Pattaya', sans-serif;
+  font-family: 'Sarabun', sans-serif;
+  font-family: 'Sriracha', cursive;
+  font-family: 'Taviraj', serif;
+  
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Mitr:wght@400;500&family=Noto+Sans+Thai+Looped:wght@400;800;900&family=Noto+Sans+Thai:wght@300;400;900&family=Pattaya&family=Sarabun:ital,wght@0,700;1,500;1,800&family=Sriracha&family=Taviraj&display=swap');
+
+

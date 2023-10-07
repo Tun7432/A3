@@ -31,6 +31,14 @@
     >
       <mat-icon>search</mat-icon>ค้นหา
     </button>
+    <button
+    mat-raised-button
+    color="primary"
+    style="margin-right: 15px; font-family: 'Noto Sans Thai', sans-serif; font-family: 'Noto Sans Thai Looped', sans-serif;"
+    (click)="resetSearch()"
+    >
+    <mat-icon>refresh</mat-icon>รีเซ็ตการค้นหา
+    </button>
     <div class="period">
       <label>งวดที่ <span>*</span></label>
       <select [(ngModel)]="period" (change)="onPeriodSelect()">
@@ -82,6 +90,10 @@
             <p class="left-align">
               งวดที่: {{ result.period }}
               <span class="right-align">ชุด : {{ result.set_number }} </span>
+            </p>
+            <p class="left-align">
+              จำนวน: {{ result.quantity }}
+             
             </p>
             <p class="left-align">ราคา : {{ result.price }}</p>
           </div>

@@ -1,9 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Lottery } from 'src/app/model/Lottery.model';
 import { CartService } from 'src/app/services/cart.service';
+import { LotteryService } from 'src/app/services/lottery.service';
+
 
 @Component({
   selector: 'app-purchase-history',
@@ -11,11 +14,34 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./purchase-history.component.css']
 })
 export class PurchaseHistoryComponent {
+
   cartItems: Lottery[] = [];
-  
+  id = this.cartService.Usersid;
+  // allResults: string | undefined;
+  Results: any;
+  allLResults: any;
   constructor(private cartService: CartService, private router: Router,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog     ) {}
+        private http: HttpClient,
+public data: LotteryService,
+    private dialog: MatDialog) {
+    console.log(this.id);
+     this.http.get(this.data.apiEndpoint + "/purchase/" + this.id).subscribe(
+      (response) => {
+        console.log("สถานะการอัปเดตข้อมูล: " + response);
+         console.log("ผลการอัปเดตข้อมูล: " + JSON.stringify(response));
+         this.allLResults = response;
+this.Results = this.allLResults;
+
+         console.log(this.Results);
+         
+      },
+      (error) => {
+        console.error("เกิดข้อผิดพลาดในการอัปเดตข้อมูล: " + JSON.stringify(error));
+      }
+    );
+    
+  }
 
   ngOnInit() {
     this.cartService.getItems().subscribe((items) => {

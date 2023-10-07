@@ -56,15 +56,17 @@
 
           <mat-list-item>
             <button
-              routerLink="table"
-              mat-button
-              style="
-                font-family: 'Noto Sans Thai', sans-serif;
-                font-family: 'Noto Sans Thai Looped', sans-serif;
-               "  routerLink="/cart"
-            >
-              <mat-icon>list_alt</mat-icon>ตะกร้าสลาก
-            </button>
+            routerLink="table"
+            mat-button
+            style="
+              font-family: 'Noto Sans Thai', sans-serif;
+              font-family: 'Noto Sans Thai Looped', sans-serif;
+            "
+            routerLink="/cart"
+          >
+            <mat-icon>list_alt</mat-icon>ตะกร้าสลาก
+            <mat-badge [matBadge]="calculateTotalItems()" color="accent"></mat-badge>
+          </button>
           </mat-list-item>
           <mat-list-item>
             <button
@@ -102,11 +104,11 @@
           <router-outlet>
            
             <app-lottery-search></app-lottery-search>
-        
+         
             </router-outlet>
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
-   
+    <p-toast position="top-right"></p-toast>
   </body>
 </html>
