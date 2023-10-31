@@ -20,7 +20,7 @@ export class PurchaseHistoryComponent {
   isMultiple = false;
   lotteriesByNumber = new Array<any>();
   allLotteryResults = Array<Lottery>();
-  cartItems: Lottery[] = [];
+  
   dataSource = new MatTableDataSource<Purchase>([]);
   selectedDate: Date | null = null;
 
@@ -52,11 +52,7 @@ this.Results = this.allLResults;
     
   }
 
-  ngOnInit() {
-    this.cartService.getItems().subscribe((items) => {
-      this.cartItems = items;
-    });
-  }
+  
   
   removeFromCart(lottery: Lottery) {
     const config = new MatSnackBarConfig();
@@ -90,68 +86,33 @@ this.Results = this.allLResults;
     console.log("ลบทั้งหมด",this.cartService)
   }
 
-  getCartBadgeCount(lottery: Lottery): number {
-    const existingLottery = this.cartItems.find(
-      (item) => item.ticket_number === lottery.ticket_number
-    );
-    return existingLottery ? existingLottery.quantity || 0 : 0;
-  }
+
   
   goToSearch() {
     this.router.navigate(['/member']);
   }
 
-  calculateTotalPrice(): number {
-    return this.cartItems.reduce((total, item) => {
-      if (item.quantity !== undefined) {
-        return total + (item.price * item.quantity);
-      } else {
-        return total;
-      }
-    }, 0);
+  // Function to calculate the total number of items in the cart
+calculateTotalItems(): number {
+  let totalItems = 0;
+  if (this.Results && this.Results.length > 0) {
+    totalItems = this.Results.reduce((sum: number, item: any) => sum + item.quantity, 0);
   }
-  
-  calculateTotalItems(): number {
-    return this.cartItems.reduce((total, item) => {
-      if (item.quantity !== undefined) {
-        return total + item.quantity;
-      } else {
-        return total;
-      }
-    }, 0);
-  }
-  
-  
-
-  incrementQuantity(lottery: Lottery) {
-    const existingLottery = this.cartItems.find(
-      (item) => item.ticket_number === lottery.ticket_number
-    );
-  
-    if (existingLottery && existingLottery.quantity) {
-      existingLottery.quantity += 1;
-      console.log(`เพิ่มสลาก ${existingLottery.ticket_number} ในตะกร้า: ${existingLottery.quantity}`);
-    } else if (existingLottery) {
-      existingLottery.quantity = 1;
-      console.log(`เพิ่มสลาก ${existingLottery.ticket_number} ในตะกร้า: 1`);
-    }
-  }
-  
- 
-decrementQuantity(lottery: Lottery) {
-  const existingLottery = this.cartItems.find(
-    (item) => item.ticket_number === lottery.ticket_number
-  );
-
-  if (existingLottery && existingLottery.quantity && existingLottery.quantity > 1) {
-    existingLottery.quantity -= 1;
-    if (existingLottery) {
-      console.log(`ลดจำนวนสลาก ${existingLottery.ticket_number} ในตะกร้า: ${existingLottery.quantity}`);
-    }
-  } else if (existingLottery) {
-    // ถ้ามีแค่ 1 ใบให้ไม่ทำอะไร
-  }
+  return totalItems;
 }
+
+// Function to calculate the total price of items in the cart
+calculateTotalPrice(): number {
+  let totalPrice = 0;
+  if (this.Results && this.Results.length > 0) {
+    totalPrice = this.Results.reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0);
+  }
+  return totalPrice;
+}
+
+
+
+  
 getInputValues(): string {
   let concatenatedValue = '';
   for (let i = 1; i <= 6; i++) {
@@ -164,78 +125,121 @@ getInputValues(): string {
   }
   return concatenatedValue;
 }
+  
+  resetSearch() {
+  // Clear the input fields
+  for (let i = 1; i <= 3; i++) {
+    const inputElement = document.getElementsByName('input' + (i - 1))[0] as HTMLInputElement;
+    if (inputElement) {
+      inputElement.value = '';
+    }
+  }
 
-
+  // Reset the displayed results to the original data
+  this.Results = this.allLResults;
+}
 
 
 search(input: string) {
-  this.isMultiple = true;
-  this.lotteriesByNumber = [];
-  const inputArray = input.split(',');
+  // Ensure there is input to search for
+  if (input.trim() === '') {
+    return;
+  }
 
-  const ticketNumbers = inputArray.map((inputItem) =>
-    Number(inputItem.trim())
-  );
+  // Create an array to store the matching lottery results
+  const matchingResults = this.allLResults.filter((result: any) => {
+    // Extract the ticket number as a string
+    const ticketNumber = result.ticket_number.toString();
 
-  this.lotteryResults = this.allLotteryResults.filter((lottery) => {
-    const lotteryNumbers = lottery.ticket_number
-      .toString()
-      .split(',')
-      .map(Number);
-
-    const hasAllNumbers = ticketNumbers.every((number) =>
-      lotteryNumbers.includes(number)
-    );
-
-    const ticketNumberStrings = ticketNumbers.map((number) =>
-      number.toString()
-    );
-
-    const startsWithNumber = ticketNumberStrings.some((inputNumber) =>
-      lotteryNumbers.some((lotteryNumber) =>
-        lotteryNumber.toString().startsWith(inputNumber)
-      )
-    );
-
-    const endsWithNumber = ticketNumberStrings.some((inputNumber) =>
-      lotteryNumbers.some((lotteryNumber) =>
-        lotteryNumber.toString().endsWith(inputNumber)
-      )
-    );
-
-    return hasAllNumbers || startsWithNumber || endsWithNumber;
+    // Check if the ticket number includes the input
+    return ticketNumber.includes(input);
   });
 
-  // เพิ่มการแจ้งเตือน SweetAlert2 เมื่อไม่พบผลลัพธ์
-  if (this.lotteryResults.length === 0) {
+  // Update the displayed results with the matching ones
+  this.Results = matchingResults;
+
+  // If there are no matching results, display a message
+  if (matchingResults.length === 0) {
     Swal.fire({
-      title: 'ไม่พบสลาก',
-      text: 'ไม่พบสลากที่ค้นหา',
       icon: 'info',
-      confirmButtonText: 'ตกลง'
+      title: 'No Matching Results',
+      text: 'No lottery results match the entered number.',
     });
   }
 }
-filterData() {
+
+
+
+// search(input: string) {
+//   this.isMultiple = true;
+//   this.lotteriesByNumber = [];
+//   const inputArray = input.split(',');
+
+//   const ticketNumbers = inputArray.map((inputItem) =>
+//     Number(inputItem.trim())
+//   );
+
+//   this.lotteryResults = this.allLotteryResults.filter((lottery) => {
+//     const lotteryNumbers = lottery.ticket_number
+//       .toString()
+//       .split(',')
+//       .map(Number);
+
+//     const hasAllNumbers = ticketNumbers.every((number) =>
+//       lotteryNumbers.includes(number)
+//     );
+
+//     const ticketNumberStrings = ticketNumbers.map((number) =>
+//       number.toString()
+//     );
+
+//     const startsWithNumber = ticketNumberStrings.some((inputNumber) =>
+//       lotteryNumbers.some((lotteryNumber) =>
+//         lotteryNumber.toString().startsWith(inputNumber)
+//       )
+//     );
+
+//     const endsWithNumber = ticketNumberStrings.some((inputNumber) =>
+//       lotteryNumbers.some((lotteryNumber) =>
+//         lotteryNumber.toString().endsWith(inputNumber)
+//       )
+//     );
+
+//     return hasAllNumbers || startsWithNumber || endsWithNumber;
+//   });
+
+//   // เพิ่มการแจ้งเตือน SweetAlert2 เมื่อไม่พบผลลัพธ์
+//   if (this.lotteryResults.length === 0) {
+//     Swal.fire({
+//       title: 'ไม่พบสลาก',
+//       text: 'ไม่พบสลากที่ค้นหา',
+//       icon: 'info',
+//       confirmButtonText: 'ตกลง'
+//     });
+//   }
+// }
+
+  filterData() {
   if (!this.selectedDate) {
-    // แสดง SweetAlert2 ถ้าไม่ได้ป้อนข้อมูลและกดค้นหา
+    // Display an error message if no date is selected
     Swal.fire({
       icon: 'info',
       title: 'กรุณาป้อนข้อมูล',
       text: 'โปรดเลือกวันที่ก่อนค้นหา',
     });
-    return; // ไม่ดำเนินการต่อไปถ้าไม่ได้ป้อนข้อมูล
+    return;
   }
 
-  this.dataSource.data = this.allLResults.filter((purchase: Purchase) => {
+  // Filter the data based on the selected date
+  this.Results = this.allLResults.filter((purchase: Purchase) => {
     const purchaseDate = new Date(purchase.created_at);
     return purchaseDate.toDateString() === this.selectedDate!.toDateString();
   });
 
-  // ตรวจสอบว่ามีผลลัพธ์หรือไม่
-  this.hasSearchResults = this.dataSource.data.length > 0;
+  // Update the 'hasSearchResults' flag
+  this.hasSearchResults = this.Results.length > 0;
 
-  // แสดง SweetAlert2 ถ้าไม่มีผลลัพธ์
+  // Show an error message if no results are found
   if (!this.hasSearchResults) {
     Swal.fire({
       icon: 'info',
@@ -244,4 +248,5 @@ filterData() {
     });
   }
 }
+
 }
