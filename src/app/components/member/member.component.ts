@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 
 import { CartService } from 'src/app/services/cart.service'; 
 
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-member',
   templateUrl: './member.component.html',
@@ -17,7 +19,7 @@ export class MemberComponent {
      private router: Router,
      private memberDataService: MemberDataService,
      private cartService: CartService,
-
+     private dialog: MatDialog
      ) { }
   memberName: string | null = null;
   ngOnInit() {
@@ -79,4 +81,5 @@ export class MemberComponent {
       }
     }, 0);
   }
+
 }

@@ -117,17 +117,35 @@ export class LotterySearchComponent {
     }
   }
   
-  openLotteryDetailDialog(lottery: Lottery): void {
-    const dialogRef = this.dialog.open(LotteryDetailComponent, {
-      width: '400px',
-      data: lottery,
-    });
+  // openLotteryDetailDialog(lottery: Lottery): void {
+  //   const dialogRef = this.dialog.open(LotteryDetailComponent, {
+  //     width: '400px',
+  //     data: lottery,
+  //   });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog was closed');
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     console.log('Dialog was closed');
+  //   });
+  // }
+  openLotteryDetailDialog(lottery: Lottery): void {
+    Swal.fire({
+      title: 'รายละเอียดสลาก',
+      html: `
+        <p>เลขฉลาก: ${lottery.ticket_number}</p>
+        <p>งวดที่: ${lottery.period}</p>
+        <p>ชุด: ${lottery.set_number}</p>
+        <p>ราคา: ${lottery.price}</p>
+        <p>จำนวน: ${lottery.quantity}</p>
+      `,
+      confirmButtonText: 'ปิด',
+      customClass: {
+        confirmButton: 'swal2-confirm',
+        closeButton: 'swal2-close',
+        title: 'swal2-title',
+        htmlContainer: 'swal2-content',
+      },
     });
   }
-   
   getInputValues(): string {
     let concatenatedValue = '';
     for (let i = 1; i <= 6; i++) {

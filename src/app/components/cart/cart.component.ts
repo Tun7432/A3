@@ -123,15 +123,17 @@ export class CartComponent implements OnInit {
         // ทำการสั่งซื้อสลากที่นี่
         this.add();
         this.cartService.clearCart();
-        // this.router.navigate(['/member']);
+        this.router.navigate(['/purchase-history']);
   
-        // แสดงข้อความสำเร็จของ PrimeNG
-        this.messageService.add({
-          severity: 'success',
-          summary: 'สั่งซื้อสลากสำเร็จ',
-          detail: 'คุณได้สั่งซื้อสลากสำเร็จแล้ว',
-        });
-      }
+     // แสดง SweetAlert2 สำหรับการสั่งซื้อสำเร็จ
+     Swal.fire({
+      icon: 'success',
+      title: 'สั่งซื้อสลากสำเร็จ',
+      text: 'คุณได้สั่งซื้อสลากสำเร็จแล้ว',
+      timer: 4000, 
+      showConfirmButton: false,
+    });
+  }
     });
   }
   

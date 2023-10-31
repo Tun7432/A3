@@ -45,7 +45,7 @@ addNew(ticket_number: string, price: string, period: string, set_number: number,
         console.log(JSON.stringify(response.status));
         console.log(JSON.stringify(response.body));
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           Swal.fire({
             title: 'เพิ่มข้อมูลสำเร็จ',
             text: 'ข้อมูลถูกเพิ่มเรียบร้อยแล้ว',

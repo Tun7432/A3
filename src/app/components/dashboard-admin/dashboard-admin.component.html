@@ -17,7 +17,7 @@
       <span
       class="toolbar-title"
       
-        >Dashboard(Admin)</span
+        >Dashboard (Admin) คุณ {{this.memberName}}</span
       >
       <span class="example-spacer"></span>
 
@@ -50,18 +50,7 @@
     <mat-drawer-container autosize>
       <mat-drawer #drawer opened="true" mode="side" position="start">
         <mat-nav-list>
-          <mat-list-item>
-            <button
-              mat-button [routerLink]="['/manage-lottery']" routerLinkActive="router-link-active" 
-              style="
-                font-family: 'Noto Sans Thai', sans-serif;
-                font-family: 'Noto Sans Thai Looped', sans-serif;
-              "
-            >
-              <mat-icon>inventory</mat-icon>จัดการข้อมูลสลาก
-            </button>
-          </mat-list-item>
-
+    
           <mat-list-item>
             <button
               routerLink="table"
@@ -86,7 +75,7 @@
               style="
                 font-family: 'Noto Sans Thai', sans-serif;
                 font-family: 'Noto Sans Thai Looped', sans-serif;
-              "
+              " (click)="logout()"
             >
               <mat-icon>exit_to_app</mat-icon> ออกจากระบบ
             </button>

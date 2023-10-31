@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class LotteryDetailComponent {
   constructor(
     public dialogRef: MatDialogRef<LotteryDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public lottery: any
+    @Inject(MAT_DIALOG_DATA) public lotteries: any
   ) {}
 
   closeDialog(): void {

@@ -26,10 +26,9 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { AdminEditComponent } from './components/admin-edit/admin-edit.component';
 import { AdminAddComponent } from './components/admin-add/admin-add.component';
 
-import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
 import { AdminLotteryReportComponent } from './components/admin-lottery-report/admin-lottery-report.component';
 
-import { PurchaseDetailComponent } from './components/purchase-detail/purchase-detail.component';
+
 
 import { PurchaseComponent } from './components/purchase/purchase.component';
 import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
@@ -37,8 +36,20 @@ import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
 import { ConfirmationService, MessageService } from 'primeng/api'; // เปลี่ยนการนำเข้า
+
+
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputTextModule } from 'primeng/inputtext';
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,9 +68,9 @@ import { ConfirmationService, MessageService } from 'primeng/api'; // เปล�
     AdminEditComponent,
     AdminAddComponent,
 
-    PersonalInformationComponent,
+
     AdminLotteryReportComponent,
-    PurchaseDetailComponent,
+
 
     PurchaseComponent,
      PurchaseHistoryComponent,
@@ -77,7 +88,12 @@ import { ConfirmationService, MessageService } from 'primeng/api'; // เปล�
     ButtonModule,
     ToastModule,
     ConfirmDialogModule,
- 
+    CalendarModule,
+    DropdownModule,
+    TableModule,
+    PaginatorModule,
+    ToolbarModule,
+    InputTextModule
 
     // NgxPermissionsModule.forRoot()
   ],

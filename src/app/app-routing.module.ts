@@ -10,9 +10,9 @@ import { LotteryDetailComponent } from './components/lottery-detail/lottery-deta
 import {HomeComponent} from './components/home/home.component';
 import { MemberComponent } from './components/member/member.component';
 import { CartComponent } from './components/cart/cart.component';
-import { PersonalInformationComponent } from './components/personal-information/personal-information.component';
+
 import { AdminLotteryReportComponent } from './components/admin-lottery-report/admin-lottery-report.component';
-import { PurchaseDetailComponent } from './components/purchase-detail/purchase-detail.component';
+
 import { PurchaseHistoryComponent } from './components/purchase-history/purchase-history.component';
 
 const routes: Routes = [
@@ -59,19 +59,10 @@ const routes: Routes = [
     component: CartComponent,
     // canActivate: ['userPermission', 'adminPermission'],
   },
-  {
-    path: 'personal',
-    component: PersonalInformationComponent,
-    // canActivate: ['userPermission', 'adminPermission'],
-  },
+
   {
     path: 'report',
     component: AdminLotteryReportComponent,
-    // canActivate: ['userPermission', 'adminPermission'],
-  },
-  {
-    path: 'purchase-detail',
-    component: PurchaseDetailComponent,
     // canActivate: ['userPermission', 'adminPermission'],
   },
   {

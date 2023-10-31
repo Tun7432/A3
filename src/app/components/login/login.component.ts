@@ -49,6 +49,11 @@ export class LoginComponent  {
 
         if (response.user.role === 'admin') {
           this.router.navigate(['/dashboard']);
+          this.lotteryService.isLoggedIn = true;
+          this.lotteryService.setMemberName(response.user.first_name);
+          this.cartService.Usersid = response.user.id;
+          this.sweetAlertService.showSuccessAlert('Login Success ', '');
+          
         } else {
           this.lotteryService.isLoggedIn = true;
           this.lotteryService.setMemberName(response.user.first_name);

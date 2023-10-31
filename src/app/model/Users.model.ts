@@ -1,8 +1,4 @@
-// To parse this data:
-//
-//   import { Convert } from "./file";
-//
-//   const users = Convert.toUsers(json);
+
 
 export interface Users {
     id:           number;
